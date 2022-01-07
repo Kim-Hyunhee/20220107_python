@@ -2,6 +2,8 @@
 import requests
 import json
 
+from pyfcm import FCMNotification
+
 # 함수 제작 : 보내줄 문구 / 본문 내용을 받아서 전송
 
 def send_fcm_notification(title, body):
@@ -34,4 +36,15 @@ def send_fcm_notification(title, body):
     print(f'FCM 발송 결과 : {result}')
     
 
-send_fcm_notification('안녕하세요.', '파이썬을 통해서 보내봅니다.')
+# send_fcm_notification('안녕하세요.', '파이썬을 통해서 보내봅니다.')
+
+
+def send_fcm_by_library(title, body):
+    push_service = FCMNotification(api_key='AAAAKp25SY4:APA91bFVOL75dK5QVwQibpLBNk4hpdv6YgO0ZKuNG8dYTB4RW8YGMzTgZ1JL0e8Pbhi74pG-Oovkr8Iz3oIxZcKJv7kKGYNQNPMUB5n_7cNPUkOA7nYpgNDorskk7jp_Zz2pGuuoOMy5')
+    
+    device_token = 'dBsUZVgVQYWVIr61MWqgi_:APA91bGJ13vGfE8Furd8oTywcUgpSKiyFCIvV8m5Xa3gi7vpo6Cy7mcVYLL1FlxOi6RSaEMrpLo5hMc7aRd81hho3jStaGAXNsq8_z-jHNaEiEXj_0fIu-60-1ZHO_NsOS-Hy4coflqf'
+    
+    result = push_service.notify_single_device(registration_id=device_token, message_title=title, message_body=body)
+    print(result)
+    
+send_fcm_by_library('안녕하세요', '파이썬 pyfcm 라이브러리로 전송합니다.')
